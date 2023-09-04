@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=3 uid="uid://bgkf8hukdnwks"]
+
+[ext_resource type="PackedScene" uid="uid://b4dk724bqwbdg" path="res://testroom2.tscn" id="1_4db22"]
+[ext_resource type="Shader" path="res://world-sky.gdshader" id="1_q1kpr"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t6fyb"]
+shader = ExtResource("1_q1kpr")
+shader_parameter/skyColor = Color(0.376471, 0.423529, 0.847059, 1)
+shader_parameter/horizontalColor = Color(0.717647, 0.784314, 0.972549, 1)
+
+[sub_resource type="Sky" id="Sky_uwibi"]
+sky_material = SubResource("ShaderMaterial_t6fyb")
+
+[sub_resource type="Environment" id="Environment_r3upp"]
+background_mode = 2
+sky = SubResource("Sky_uwibi")
+ambient_light_color = Color(0.447059, 0.541176, 0.815686, 1)
+reflected_light_source = 2
+
+[node name="Node3D" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_r3upp")
+
+[node name="Node3D" parent="WorldEnvironment" instance=ExtResource("1_4db22")]

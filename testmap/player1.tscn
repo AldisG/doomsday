@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://226bolpemck7"]
+
+[ext_resource type="Texture2D" uid="uid://cvji6gbco55iu" path="res://icon.svg" id="1_0qxdk"]
+[ext_resource type="Script" path="res://testmap/player1.gd" id="1_tk3yc"]
+[ext_resource type="Texture2D" uid="uid://clxr6y5gfxde2" path="res://assets/guns/revolver.png" id="3_2ra87"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_n2gku"]
+
+[node name="PLAYER" type="CharacterBody3D" groups=["PLAYER"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.48438, 0.446041)
+floor_stop_on_slope = false
+script = ExtResource("1_tk3yc")
+
+[node name="body" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_n2gku")
+
+[node name="pivot" type="Node3D" parent="."]
+
+[node name="eyes" type="Camera3D" parent="pivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.601045, -0.019532)
+
+[node name="croshair" type="Sprite3D" parent="pivot/eyes"]
+transform = Transform3D(0.02, 0, 0, 0, 0.02, 0, 0, 0, 0.02, 0, 0, -0.745825)
+gi_mode = 0
+texture = ExtResource("1_0qxdk")
+
+[node name="weapons" type="Node3D" parent="pivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.718, 0.159957, -1.02989)
+
+[node name="revolver" type="Sprite3D" parent="pivot/weapons"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.116893, 0)
+texture_filter = 0
+texture = ExtResource("3_2ra87")
+hframes = 3
+
+[node name="aimDirection" type="RayCast3D" parent="pivot"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -1.27362e-07, 0.501298, 0.142691)
+visible = false
+target_position = Vector3(0, 0, 10)
+collide_with_bodies = false

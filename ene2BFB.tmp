@@ -1,0 +1,58 @@
+[gd_scene load_steps=7 format=3 uid="uid://cxbkj0u7jkkcn"]
+
+[ext_resource type="Script" path="res://enemy.gd" id="1_36ext"]
+[ext_resource type="Texture2D" uid="uid://de748qygctl8i" path="res://assets/zombie_n_skeleton2.png" id="2_in6dk"]
+[ext_resource type="Texture2D" uid="uid://cvji6gbco55iu" path="res://icon.svg" id="3_r53ol"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_agwva"]
+radius = 0.629382
+height = 2.7768
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yq5ju"]
+size = Vector3(1, 0.0748226, 1)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_1482h"]
+height = 5.82449
+radius = 7.16718
+
+[node name="EnemyBasicGrunt" type="CharacterBody3D" groups=["ENEMY"]]
+script = ExtResource("1_36ext")
+
+[node name="body" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.46232, 0)
+shape = SubResource("CapsuleShape3D_agwva")
+
+[node name="legBase" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_yq5ju")
+
+[node name="AnimatedSprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(6, 0, 0, 0, 6, 0, 0, 0, 6, 0, 0.983458, 0)
+offset = Vector2(0, 16)
+billboard = 2
+shaded = true
+texture_filter = 0
+texture = ExtResource("2_in6dk")
+hframes = 9
+vframes = 4
+frame = 3
+
+[node name="eyes" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.24791, 0)
+target_position = Vector3(0, 0, 7)
+collision_mask = 2
+collide_with_areas = true
+
+[node name="lookDirIndicator" type="Sprite3D" parent="eyes"]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 6.90793)
+texture = ExtResource("3_r53ol")
+
+[node name="Timer" type="Timer" parent="." groups=["ENEMY"]]
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="areaOfVission" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.64613, 0)
+shape = SubResource("CylinderShape3D_1482h")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]
