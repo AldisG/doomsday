@@ -3,4 +3,6 @@
 [ext_resource type="Script" path="res://inheritance/Navigator.gd" id="1_fonwc"]
 
 [node name="Navigator" type="NavigationAgent3D" groups=["NAVIGATOR"]]
+avoidance_enabled = true
+radius = 2.0
 script = ExtResource("1_fonwc")

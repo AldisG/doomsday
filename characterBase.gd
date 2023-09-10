@@ -18,14 +18,20 @@ func apply_gravity(velocitY, onFloor, delta):
 func handle_walking(direction, vel, speed, delta):
 	var new_vel = Vector3(0,0,0)
 	if direction:
-		#new_vel = Vector3(direction.x * speed, vel.y, direction.z * speed)
-		new_vel.x = move_toward(((direction.x * speed) * delta), speed, 0)
-		new_vel.z = move_toward(((direction.z * speed) * delta), speed, 0)
-		new_vel.y = vel.y
+		var x = move_toward(((direction.x * speed) * delta), speed, 0)
+		var z = move_toward(((direction.z * speed) * delta), speed, 0)
+		new_vel = Vector3(x, vel.y, z)
 	else:
 		new_vel = Vector3(move_toward(velocity.x, 0, speed), vel.y, move_toward(velocity.z, 0, speed))
 	return new_vel
 	pass
 
-#func update_target_location(target_location,navigator):
-	#navigator.set_target_position(target_location) 
+func chase_player(player: Vector3, me: Vector3, speed):
+	var next_velocity: Vector3
+	var next_location = (player - me).normalized()
+	var vel = Vector3(next_location.x, 0, next_location.z) * speed
+	return vel
+
+func stopCharacter():
+	return Vector3(0, velocity.y, 0)
+	pass

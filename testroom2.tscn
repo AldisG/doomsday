@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://cf57objwglsdk" path="res://assets/elements/box.tscn" id="6_yu33c"]
 [ext_resource type="PackedScene" uid="uid://cct6c4i2skeom" path="res://entities/dummy.tscn" id="7_cq424"]
 
-[sub_resource type="NavigationMesh" id="NavigationMesh_m8kwu"]
+[sub_resource type="NavigationMesh" id="NavigationMesh_2btpq"]
 vertices = PackedVector3Array(10.755, 0.52731, -1.98601, 11.005, 0.52731, -0.98601, 11.255, 0.52731, -0.98601, 11.255, 0.52731, -9.73601, 4.50496, 0.52731, -1.73601, 7.00496, 0.52731, -1.73601, 10.755, 0.52731, -1.98601, 11.255, 0.52731, -9.73601, 4.50496, 0.52731, -9.73601, 6.25496, 0.52731, -0.73601, 7.00496, 0.52731, -0.98601, 7.00496, 0.52731, -1.73601, 4.50496, 0.52731, -1.73601, 4.25496, 0.52731, -1.23601, 4.50496, 0.52731, 1.76399, 6.75496, 0.52731, 0.76399, 6.25496, 0.52731, 0.51399, 4.25496, 0.52731, 1.26399, 4.25496, 0.52731, 1.26399, 6.25496, 0.52731, 0.51399, 6.25496, 0.52731, -0.73601, 4.25496, 0.52731, -1.23601, -3.24504, 0.52731, -1.23601, -3.24504, 0.52731, 1.26399, 11.255, 0.52731, -0.98601, 11.005, 0.52731, -0.98601, 10.755, 0.52731, -0.23601, 11.255, 0.52731, 9.51399, 10.755, 0.52731, -0.23601, 9.00496, 0.52731, -0.48601, 8.50496, 0.52731, 0.76399, 11.255, 0.52731, 9.51399, 8.50496, 0.52731, 0.76399, 6.75496, 0.52731, 0.76399, 4.50496, 0.52731, 1.76399, 4.50496, 0.52731, 9.51399, 11.255, 0.52731, 9.51399)
 polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(5, 4, 6), PackedInt32Array(6, 4, 8), PackedInt32Array(6, 8, 7), PackedInt32Array(10, 9, 11), PackedInt32Array(11, 9, 12), PackedInt32Array(12, 9, 13), PackedInt32Array(17, 16, 14), PackedInt32Array(14, 16, 15), PackedInt32Array(20, 19, 21), PackedInt32Array(21, 19, 18), PackedInt32Array(21, 18, 23), PackedInt32Array(21, 23, 22), PackedInt32Array(25, 24, 26), PackedInt32Array(26, 24, 27), PackedInt32Array(29, 28, 30), PackedInt32Array(30, 28, 31), PackedInt32Array(33, 32, 34), PackedInt32Array(34, 32, 35), PackedInt32Array(35, 32, 36)]
 
@@ -71,7 +71,7 @@ volumetric_fog_detail_spread = 0.90125
 
 [node name="TestWorld" type="Node3D" node_paths=PackedStringArray("player")]
 script = ExtResource("1_4odg7")
-player = NodePath("entities/PLAYER")
+player = NodePath("Regions/entities/PLAYER")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.59917, 5.62581, 0)
@@ -82,7 +82,7 @@ omni_range = 5.87587
 
 [node name="Regions" type="NavigationRegion3D" parent="."]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
-navigation_mesh = SubResource("NavigationMesh_m8kwu")
+navigation_mesh = SubResource("NavigationMesh_2btpq")
 
 [node name="room1" type="Node3D" parent="Regions"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
@@ -231,31 +231,31 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.6161, -0.2, -2.0855)
 [node name="box5" parent="Regions/room1/Objects" instance=ExtResource("6_yu33c")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.0416, -0.2, -2.0855)
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_jfpxw")
+[node name="entities" type="Node3D" parent="Regions"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="entities" type="Node3D" parent="."]
-
-[node name="PLAYER" parent="entities" instance=ExtResource("1_mlkhh")]
+[node name="PLAYER" parent="Regions/entities" instance=ExtResource("1_mlkhh")]
 transform = Transform3D(-0.19456, 0, -0.980891, 0, 1, 0, 0.980891, 0, -0.19456, 9.83824, 2.69684, 0)
 
-[node name="enemies" type="Node3D" parent="entities"]
+[node name="enemies" type="Node3D" parent="Regions/entities"]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, -0.726688, 0)
 
-[node name="Npcs" type="Node3D" parent="entities"]
+[node name="Npc" parent="Regions/entities/enemies" instance=ExtResource("5_0a33i")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 2.50556, 0)
 
-[node name="Npc" parent="entities/Npcs" instance=ExtResource("5_0a33i")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.28444, 0)
+[node name="Npcs" type="Node3D" parent="Regions/entities"]
 
-[node name="EnemyBasicGrunt2" parent="entities" node_paths=PackedStringArray("playerNode") instance=ExtResource("4_a6c6r")]
+[node name="EnemyBasicGrunt2" parent="Regions/entities" instance=ExtResource("4_a6c6r")]
 transform = Transform3D(0.070592, 0, -0.997506, 0, 1, 0, 0.997506, 0, 0.070592, 16.8614, 6.29571, 7.81824)
-playerNode = NodePath("../PLAYER")
 
-[node name="Dummy" parent="entities" groups=["ENEMY_STATE"] instance=ExtResource("7_cq424")]
+[node name="Dummy" parent="Regions/entities" groups=["ENEMY_STATE"] instance=ExtResource("7_cq424")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.983, 1.87318, -10.74)
 
-[node name="Dummy2" parent="entities" groups=["ENEMY_STATE"] instance=ExtResource("7_cq424")]
+[node name="Dummy2" parent="Regions/entities" groups=["ENEMY_STATE"] instance=ExtResource("7_cq424")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.383, 1.87318, -10.74)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_jfpxw")
 
 [node name="Timer" type="Timer" parent="."]
 
