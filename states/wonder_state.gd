@@ -15,7 +15,7 @@ func _exit_state():
 	pass
 
 func _physics_process(delta):
-	enemy_self.velocity.y = moving.apply_gravity(enemy_self.velocity.y, enemy_self.is_on_floor(), delta)
+	#enemy_self.velocity.y = moving.apply_gravity(enemy_self.velocity.y, enemy_self.is_on_floor(), delta)
 	pass
 
 func _on_chase_range_body_entered(body: Node3D) -> void:
@@ -23,6 +23,5 @@ func _on_chase_range_body_entered(body: Node3D) -> void:
 	if _self: return
 
 	if body.name == "PLAYER":
-		#print("player entered area - wonder")
 		saw_player.emit()
 	pass 

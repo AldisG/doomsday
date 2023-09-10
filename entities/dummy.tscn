@@ -1,0 +1,26 @@
+[gd_scene load_steps=7 format=3 uid="uid://cct6c4i2skeom"]
+
+[ext_resource type="Script" path="res://entities/dummy.gd" id="1_qvqb3"]
+[ext_resource type="Texture2D" uid="uid://cvji6gbco55iu" path="res://icon.svg" id="1_vm735"]
+[ext_resource type="PackedScene" uid="uid://lurt8ys7otb3" path="res://states/navigator.tscn" id="3_uqii4"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_08rq5"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xt3bv"]
+blend_mode = 3
+roughness_texture = ExtResource("1_vm735")
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_eyhcj"]
+material = SubResource("StandardMaterial3D_xt3bv")
+
+[node name="Dummy" type="CharacterBody3D" groups=["ENEMY"]]
+script = ExtResource("1_qvqb3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_08rq5")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_eyhcj")
+
+[node name="Navigator" parent="." node_paths=PackedStringArray("character") instance=ExtResource("3_uqii4")]
+character = NodePath("..")

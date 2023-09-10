@@ -1,74 +1,79 @@
 extends CharacterBody3D
 
 @export var playerNode: CharacterBody3D
-@onready var look_dir = $head/lookDir
 @onready var animation = $Sprite
 @onready var head = $head
 @onready var debugText = $DEBUG
 @onready var timer = $Timer
-@onready var walk_checker = $head/WalkChecker # add this as condition to check, can walk foward more
+#@onready var walk_checker = $head/WalkChecker # add this as condition to check, can walk foward more
 
+#FOR STATE MACHINE
 @onready var state_machine = $StateMachine as StateMachine
 @onready var wonder_state = $StateMachine/WonderState as WonderState
 @onready var chase_state = $StateMachine/ChaseState as ChaseState
+@onready var navigator = $Navigator as NavigationAgent3D
 
-#FOR STATE MACHINE
 enum { IDLE, ALERT, MOVE }
-enum {FACE_L, FACE_R, FACE_B, FACE_F}
 
 var mobStatus = IDLE
-var facingDir = FACE_F
 var roamDir = 1
 var playerVisible: bool = false
 
 func _ready():
-	# doesnt switch states
-	wonder_state.saw_player.connect(state_machine.change_state.bind(chase_state))
-	chase_state.lost_player.connect(state_machine.change_state.bind(wonder_state))
-	#setTimeouts()
+	#wonder_state.saw_player.connect(state_machine.change_state.bind(chase_state))
+	#chase_state.lost_player.connect(state_machine.change_state.bind(wonder_state))
 	mobStatus = IDLE
 	pass
 
 func _physics_process(delta):
 	#velocity.y = moving.apply_gravity(velocity.y, is_on_floor(), delta)
-	#move_and_slide()
-	pass
-
-func _process(delta):
-	#debugText.text = str(timer.time_left, roamDir)
-	if playerNode:
-		if playerVisible:
-			var p = playerNode.global_position
-			look_at(Vector3(p.x, global_position.y, p.z))
-			
-			#var dir = (playerNode.global_position - global_position).normalized()
-			#dir should be determined depending is char going to X asis and Z axis + or -
-			"""if (dir.z > -0.5 and dir.z < 0.5): facingDir = 'back'
-			if (dir.z > 0.5 and dir.z < 1): facingDir = 'left'
-			if (dir.z < -0.5 and dir.z > -1): facingDir = 'right'
-			if (dir.z < 0.5 and dir.z > -0.5): facingDir = 'front'
-			print(dir.z < 0.5 and dir.z > -0.5, dir.z) debugText.text =  facingDir"""
-	else:
-		# roam
-		pass
 	
-	# animation mobStatuss
+	if navigator:
+		var current_loc = global_transform.origin
+		var next_loc = navigator.get_next_path_position()
+		print(next_loc)
+		var new_velocity = (next_loc - current_loc).normalized() * 21
+
+		#if not is_on_floor(): velocity.y -= gravity * delta
+		if is_on_floor(): velocity = Vector3(new_velocity.x, 0, new_velocity.z)
+	
+		move_and_slide()
+	"""
+	if navigator:
+		var current_loc = global_transform.origin
+		var next_loc = navigator.get_next_path_position()
+		var new_velocity = (next_loc - current_loc).normalized() * 1
+
+		if is_on_floor():
+			velocity = Vector3(new_velocity.x, velocity.y, new_velocity.z)
+			velocity.y = 0
+	"""
+	
+	move_and_slide()
+
+func _process(_delta):
+	#debugText.text = str(timer.time_left, roamDir)
+	#if playerNode:
+		#if playerVisible:
+			#var p = playerNode.global_position
+			#look_at(Vector3(p.x, global_position.y, p.z))
+	#else:
+		# roam
 	match mobStatus:
 		IDLE: animation.play("s_f")
 		ALERT: pass
 		MOVE: animation.play("w_f")
 	pass
+
 # CUSTOM FUNCS v ---
 func checkBodyType(bodies, entrance):
 	for group in bodies.get_groups():
 		if "PLAYER" == group:
-			timer.stop()
-			
+			#timer.stop()
 			if entrance == "entered":
 				playerVisible = true
 				return
 			else:
-				#setTimeouts()
 				playerVisible = false
 				return
 	pass
@@ -79,10 +84,8 @@ func stopCharacter():
 	pass
 
 func setTimeouts():
-	var n = 10
-	var randomTimeout = roundf(randi_range(2, n))
-	timer.start(randomTimeout)
-	roamDir = -1 * roamDir
+	#var n = 10
+	#var randomTimeout = roundf(randi_range(2, n))
 	pass
 
 # EVENTS V ---
@@ -91,13 +94,8 @@ func _on_area_3d_body_entered(body):
 	pass
 
 func _on_area_3d_body_exited(body):
-	#setTimeouts()
 	checkBodyType(body, "exited")
 	pass
 
 func _on_timer_timeout():
-	#setTimeouts()
 	pass
-
-func _on_look_dir_visibility_changed(body):
-	pass # Replace with function body.

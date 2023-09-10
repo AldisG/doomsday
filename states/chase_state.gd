@@ -6,7 +6,8 @@ extends State
 
 @export var chase_range: Area3D
 @export var enemy_self: CharacterBody3D
-@export var speed = 80
+@export var speed = 30
+#@onready var navigator = $"../../NavigationAgent3D" as NavigationAgent3D
 
 var playerVisible = false
 
@@ -24,35 +25,32 @@ func _exit_state():
 	playerVisible = false
 	pass
 
-func _process(delta):
-	if playerNode and playerVisible and enemy_self.is_on_floor():
-		var distance = enemy_self.global_transform.origin.distance_to(playerNode.global_transform.origin)
-		var dir = (playerNode.global_transform.origin - enemy_self.global_transform.origin).normalized()
-		
-		if distance > 2:
-			#use navigation to find player
-			enemy_self.velocity = moving.handle_walking(dir, enemy_self.velocity, speed, delta)
-			#enemy_self.velocity = Vector3(dir.x * speed, enemy_self.velocity.y, dir.z * speed)
-		else: enemy_self.stopCharacter()
-			
-	else: 
-		enemy_self.stopCharacter()
-		#enemy_self.velocity = Vector3(enemy_self.roamDir * speed, enemy_self.velocity.y, enemy_self.roamDir * speed)
-		pass
-	enemy_self.move_and_slide()
+func _physics_process(_delta):
+	"""
+	if navigator:
+		var current_loc = enemy_self.global_transform.origin
+		var next_loc = navigator.get_next_path_position()
+		var new_velocity = (next_loc - current_loc).normalized() * 5.0
+
+		enemy_self.velocity = Vector3(new_velocity.x, enemy_self.velocity.y, new_velocity.z)
+		enemy_self.velocity.y = 0
+	"""
+	#enemy_self.move_and_slide()
 	pass
 
+func update_target_location(target_location):
+	#navigator.set_target_position(target_location)
+	pass
+	
 func _on_chase_range_body_exited(body: Node3D) -> void:
-	var enemy_self = body.is_in_group("ENEMY") 
-	if enemy_self: return
+	var _self = body.is_in_group("ENEMY") 
+	if _self: return
 	if body.name == "PLAYER":
 		playerNode = body
 		lost_player.emit()
-		#print("player exited area - chase")
-	pass # Replace with function body.
-
+	pass
 
 func _on_chase_range_body_entered(body):
 	if body.name == "PLAYER":
 		playerNode = body
-	pass # Replace with function body.
+	pass

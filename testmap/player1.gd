@@ -50,8 +50,4 @@ func _physics_process(delta):
 	move_and_slide()
 	pass
 
-func _process(delta):
-	pass
-
-func change_gun(gun):
-	pass
+#func change_gun(gun): 	pass
