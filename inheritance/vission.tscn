@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://6shliu1ixvpw"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_a3hv3"]
+height = 0.698481
+radius = 0.772671
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_p7asm"]
+height = 1.22421
+radius = 1.21157
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_kb2bx"]
+height = 3.2729
+radius = 2.7699
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_nxkfl"]
+height = 4.88587
+radius = 5.08144
+
+[node name="Vission" type="Area3D"]
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("CylinderShape3D_a3hv3")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.216271, -0.938987)
+shape = SubResource("CylinderShape3D_p7asm")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.881973, -3.22265)
+shape = SubResource("CylinderShape3D_kb2bx")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.93503, -7.21542)
+shape = SubResource("CylinderShape3D_nxkfl")

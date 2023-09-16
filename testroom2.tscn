@@ -1,17 +1,19 @@
-[gd_scene load_steps=22 format=3 uid="uid://b4dk724bqwbdg"]
+[gd_scene load_steps=23 format=3 uid="uid://b4dk724bqwbdg"]
 
 [ext_resource type="Script" path="res://testroom2.gd" id="1_4odg7"]
 [ext_resource type="PackedScene" uid="uid://226bolpemck7" path="res://testmap/player1.tscn" id="1_mlkhh"]
 [ext_resource type="Texture2D" uid="uid://b7dlnd57gmqad" path="res://Cobblestone 00 seamless.jpg" id="2_s6ae5"]
 [ext_resource type="Texture2D" uid="uid://b2rlwarf2yfss" path="res://0058-512x512.jpg" id="3_tn85h"]
+[ext_resource type="Texture2D" uid="uid://cvji6gbco55iu" path="res://icon.svg" id="3_uswgu"]
 [ext_resource type="PackedScene" uid="uid://cxbkj0u7jkkcn" path="res://enemy.tscn" id="4_a6c6r"]
 [ext_resource type="PackedScene" uid="uid://cjmjqb87y3m12" path="res://npc.tscn" id="5_0a33i"]
 [ext_resource type="PackedScene" uid="uid://cf57objwglsdk" path="res://assets/elements/box.tscn" id="6_yu33c"]
-[ext_resource type="PackedScene" uid="uid://cct6c4i2skeom" path="res://entities/dummy.tscn" id="7_cq424"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_2btpq"]
 vertices = PackedVector3Array(10.755, 0.52731, -1.98601, 11.005, 0.52731, -0.98601, 11.255, 0.52731, -0.98601, 11.255, 0.52731, -9.73601, 4.50496, 0.52731, -1.73601, 7.00496, 0.52731, -1.73601, 10.755, 0.52731, -1.98601, 11.255, 0.52731, -9.73601, 4.50496, 0.52731, -9.73601, 6.25496, 0.52731, -0.73601, 7.00496, 0.52731, -0.98601, 7.00496, 0.52731, -1.73601, 4.50496, 0.52731, -1.73601, 4.25496, 0.52731, -1.23601, 4.50496, 0.52731, 1.76399, 6.75496, 0.52731, 0.76399, 6.25496, 0.52731, 0.51399, 4.25496, 0.52731, 1.26399, 4.25496, 0.52731, 1.26399, 6.25496, 0.52731, 0.51399, 6.25496, 0.52731, -0.73601, 4.25496, 0.52731, -1.23601, -3.24504, 0.52731, -1.23601, -3.24504, 0.52731, 1.26399, 11.255, 0.52731, -0.98601, 11.005, 0.52731, -0.98601, 10.755, 0.52731, -0.23601, 11.255, 0.52731, 9.51399, 10.755, 0.52731, -0.23601, 9.00496, 0.52731, -0.48601, 8.50496, 0.52731, 0.76399, 11.255, 0.52731, 9.51399, 8.50496, 0.52731, 0.76399, 6.75496, 0.52731, 0.76399, 4.50496, 0.52731, 1.76399, 4.50496, 0.52731, 9.51399, 11.255, 0.52731, 9.51399)
 polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(5, 4, 6), PackedInt32Array(6, 4, 8), PackedInt32Array(6, 8, 7), PackedInt32Array(10, 9, 11), PackedInt32Array(11, 9, 12), PackedInt32Array(12, 9, 13), PackedInt32Array(17, 16, 14), PackedInt32Array(14, 16, 15), PackedInt32Array(20, 19, 21), PackedInt32Array(21, 19, 18), PackedInt32Array(21, 18, 23), PackedInt32Array(21, 23, 22), PackedInt32Array(25, 24, 26), PackedInt32Array(26, 24, 27), PackedInt32Array(29, 28, 30), PackedInt32Array(30, 28, 31), PackedInt32Array(33, 32, 34), PackedInt32Array(34, 32, 35), PackedInt32Array(35, 32, 36)]
+geometry_parsed_geometry_type = 1
+detail_sample_distance = 2.0
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_4vgrh"]
 
@@ -27,6 +29,9 @@ data = PackedVector3Array(1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0
 albedo_texture = ExtResource("2_s6ae5")
 uv1_triplanar = true
 uv1_world_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_robm7"]
+albedo_texture = ExtResource("3_uswgu")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kk2k7"]
 
@@ -55,19 +60,7 @@ data = PackedVector3Array(1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_hn2oi"]
 data = PackedVector3Array(1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0, -1)
 
-[sub_resource type="Environment" id="Environment_jfpxw"]
-ambient_light_color = Color(0.623529, 0.611765, 0.823529, 1)
-reflected_light_source = 2
-fog_light_color = Color(0.223529, 0.207843, 0.219608, 1)
-fog_light_energy = 0.0
-fog_sun_scatter = 1.0
-fog_density = 0.189
-volumetric_fog_density = 0.3342
-volumetric_fog_albedo = Color(0.482353, 0.192157, 0.211765, 1)
-volumetric_fog_emission = Color(0.588235, 0.407843, 0.305882, 1)
-volumetric_fog_emission_energy = 151.91
-volumetric_fog_gi_inject = 1.79
-volumetric_fog_detail_spread = 0.90125
+[sub_resource type="Environment" id="Environment_gj7y1"]
 
 [node name="TestWorld" type="Node3D" node_paths=PackedStringArray("player")]
 script = ExtResource("1_4odg7")
@@ -115,6 +108,7 @@ shape = SubResource("ConcavePolygonShape3D_uvqnv")
 
 [node name="griesti" type="MeshInstance3D" parent="Regions/room1/walls"]
 transform = Transform3D(-3.99504, 8.74228e-08, 0, -3.49258e-07, -1, 0, 0, 0, 2.00486, 0, 3.71658, 0)
+material_override = SubResource("StandardMaterial3D_robm7")
 mesh = SubResource("PlaneMesh_4vgrh")
 skeleton = NodePath("../../../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_wyyib")
@@ -246,16 +240,10 @@ transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 2.50556, 0)
 [node name="Npcs" type="Node3D" parent="Regions/entities"]
 
 [node name="EnemyBasicGrunt2" parent="Regions/entities" instance=ExtResource("4_a6c6r")]
-transform = Transform3D(0.070592, 0, -0.997506, 0, 1, 0, 0.997506, 0, 0.070592, 16.8614, 6.29571, 7.81824)
-
-[node name="Dummy" parent="Regions/entities" groups=["ENEMY_STATE"] instance=ExtResource("7_cq424")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.983, 1.87318, -10.74)
-
-[node name="Dummy2" parent="Regions/entities" groups=["ENEMY_STATE"] instance=ExtResource("7_cq424")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.383, 1.87318, -10.74)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.8614, 6.29571, 7.81824)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_jfpxw")
+environment = SubResource("Environment_gj7y1")
 
 [node name="Timer" type="Timer" parent="."]
 

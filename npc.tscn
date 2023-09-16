@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://cjmjqb87y3m12"]
+[gd_scene load_steps=6 format=3 uid="uid://cjmjqb87y3m12"]
 
 [ext_resource type="Script" path="res://Npc.gd" id="1_sroci"]
 [ext_resource type="Texture2D" uid="uid://cvji6gbco55iu" path="res://icon.svg" id="2_au0f0"]
+[ext_resource type="PackedScene" uid="uid://lurt8ys7otb3" path="res://states/navigator.tscn" id="3_hww0c"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fgrln"]
 radius = 0.642422
@@ -28,3 +29,10 @@ shape = SubResource("CylinderShape3D_8uaof")
 
 [node name="DEBUG" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.956624, 0)
+
+[node name="Navigator" parent="." node_paths=PackedStringArray("character") instance=ExtResource("3_hww0c")]
+navigation_layers = 2
+radius = 24.31
+time_horizon_agents = 1.95
+time_horizon_obstacles = 1.05
+character = NodePath("..")
